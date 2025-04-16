@@ -106,6 +106,4 @@ ll.insertFirst(300);
 ll.insertFirst(400);
 ll.insertFirst(500);
 
-ll.insertAtIndex(100, 2);
-
 ll.printListData();
