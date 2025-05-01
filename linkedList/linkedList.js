@@ -1,82 +1,198 @@
-// Node Class
-var ListNode = /** @class */ (function () {
-  function ListNode(data, next) {
-    if (next === void 0) {
-      next = null;
-    }
+// List Node
+class ListNode {
+  constructor(data, next = null) {
     this.data = data;
     this.next = next;
   }
-  return ListNode;
-})();
-// Linked Lists System
-var LinkedList = /** @class */ (function () {
-  function LinkedList() {
+}
+
+// Define LinkedLists
+class LinkedList {
+  constructor() {
     this.head = null;
     this.size = 0;
   }
+
   // Insert First Node
-  LinkedList.prototype.insertFirst = function (data) {
-    this.head = new ListNode(data, this.head);
-    this.size++;
-  };
-  // Insert Last Node
-  LinkedList.prototype.insertLast = function (data) {
-    var count = 0;
-    var current;
-    // Check if List is empty
+
+  insertFirst(data) {
     if (this.head) {
-      current = this.head;
-    } else {
-      this.insertFirst(data);
-    }
-    while (count < this.size) {
-      count++;
-      if ((current === null || current === void 0 ? void 0 : current.next) != null) {
-        current = current === null || current === void 0 ? void 0 : current.next;
-      } else if (current) {
-        current.next = new ListNode(data, current === null || current === void 0 ? void 0 : current.next);
-      }
-    }
-    this.size++;
-  };
-  // Insert At Index
-  LinkedList.prototype.insertAtIndex = function (data, index) {
-    // Ensure that the index provided is positive and does not exceed linked list size range
-    if (index < 0 && index > this.size - 1) {
+      console.log("linked list already has a first node, list not empty!");
       return;
     }
-    // If Index is zero, call insertFirst
-    index === 0 && this.insertFirst(data);
-    var count = 0;
-    var current, previous;
-    current = this.head;
-    while (count < index) {
-      count++;
-      previous = current;
-      current = current ? (current === null || current === void 0 ? void 0 : current.next) : null;
+
+    return (this.head = new ListNode(data)), this.size++;
+  }
+
+  //   Insert Last Node
+
+  insertLast(data) {
+    let newNode = new ListNode(data);
+
+    // when there is no linkedlist and when there's only one Node in the list
+    if (this.head === null) {
+      console.log(`list is empty the head is ${this.head} \n...try inserting a node first`);
+      return;
+    } else if (this.head.next === null) {
+      this.head.next = newNode;
+      newNode.next = null;
+      console.log(`insert last... new node data => ${newNode.data}`);
+      this.size++;
+      return;
     }
-    var newNode = new ListNode(data, current);
-    previous.next = newNode;
-  };
-  // Get At Index
-  // Remove At Index
-  // Clear List
-  // Print List Data
-  LinkedList.prototype.printListData = function () {
-    var current = this.head;
-    while (current) {
-      console.log(current.data);
+
+    // when there're multiple nodes in the list
+
+    let current = this.head;
+
+    while (current.next !== null) {
       current = current.next;
     }
-  };
-  return LinkedList;
-})();
-var ll = new LinkedList();
-ll.insertFirst(100);
-ll.insertFirst(200);
-ll.insertFirst(300);
-ll.insertFirst(400);
-ll.insertFirst(500);
-ll.insertAtIndex(100, 2);
-ll.printListData();
+
+    current.next = newNode;
+    this.size++;
+  }
+
+  // Insert At Index
+
+  insertAtIndex(index, data) {
+    if (index > this.size - 1) return;
+
+    let newNode = new ListNode(data);
+
+    let current = this.head;
+    let previous = null;
+    let count = 0;
+
+    while (count !== index) {
+      count++;
+      previous = current;
+      current = current.next;
+    }
+
+    previous.next = newNode;
+
+    newNode.next = current;
+
+    this.size++;
+
+    console.log(`previous --> ${previous.data}, \n current --> ${current.data}`);
+  }
+
+  // Get At Index
+
+  getAtIndex(index) {
+    if (index > this.size - 1) return;
+
+    let current = this.head;
+    let count = 0;
+
+    while (count !== index) {
+      count++;
+      current = current.next;
+    }
+
+    console.log(`at index -> ${index}, in the linked list the data is -> ${current.data}`);
+  }
+
+  // Remove At Index
+
+  removeAtIndex(index) {
+    if (index > this.size - 1) return;
+
+    let current = this.head;
+    let previous = null;
+    let count = 0;
+
+    while (count !== index) {
+      count++;
+      previous = current;
+      current = current.next;
+    }
+
+    previous.next = current.next;
+    current = null;
+
+    this.size--;
+  }
+
+  // Clear List
+  clearList() {
+    console.log(`Clear List...`);
+
+    this.head = null;
+  }
+
+  // Reverse Linked List
+
+  reverseListIterative() {
+    if (this.head === null) return;
+
+    let previous = null;
+    let current = this.head;
+    let next = null;
+
+    while (current !== null) {
+      next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+
+    this.head = previous;
+  }
+
+  reverseListRecurssive() {
+    if ((this.head == null) | (this.head.next == null)) {
+      return this.head;
+    }
+
+    reversedListNode = this.reverseListRecurssive(this.head.next);
+
+    this.head.next.next = this.head;
+    this.head.next = null;
+
+    this.reverseListRecurssive();
+  }
+
+  // Merge Two Sorted Lists
+
+  // Print List Data
+
+  printAllNodes() {
+    if (this.head === null) {
+      console.log(`List is Empty`);
+      return;
+    }
+
+    let count = 0;
+    let current = this.head;
+    let listArr = [];
+
+    while (count < this.size) {
+      count++;
+      listArr.push(current.data);
+      current = current.next;
+    }
+
+    console.log(`the current lists -> ${listArr}`);
+  }
+}
+
+const testerLS = new LinkedList();
+
+testerLS.insertFirst(100);
+testerLS.insertLast(200);
+testerLS.insertLast(300);
+
+testerLS.insertAtIndex(2, 400);
+testerLS.printAllNodes();
+
+// testerLS.removeAtIndex(3);
+
+// testerLS.clearList();
+
+testerLS.reverseListIterative();
+// testerLS.reverseListRecurssive
+
+testerLS.printAllNodes();
