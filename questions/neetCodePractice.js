@@ -1,4 +1,4 @@
-// finding duplicate numbers in an array
+// Finding duplicate numbers in an array
 
 const findDuplicateNumbers = (arr) => {
   const filteredArray = new Set();
@@ -12,7 +12,7 @@ const findDuplicateNumbers = (arr) => {
   }
 };
 
-// finding anagrams
+// Finding anagrams
 
 const findingAnagrams = (str1, str2) => {
   // check if both strings provided are of the same length
@@ -36,6 +36,8 @@ const findingAnagrams = (str1, str2) => {
   return false;
 };
 
+// Finding the Two Sum
+
 const findTwoSum = (arr, target) => {
   let map = new Map();
 
@@ -53,5 +55,4 @@ const findTwoSum = (arr, target) => {
 var str1 = "plays";
 
 var str2 = "yalpe";
-
 console.log(findingAnagrams(str1, str2));
