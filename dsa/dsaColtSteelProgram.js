@@ -94,6 +94,65 @@ console.log(`- Anagram problems`);
 
 /* 
 
+Write a function called sameFrequency. Given two positive integers, find out if the two numbers have the same frequency of digits.
+
+Your solution MUST have the following complexities:
+
+Time: O(N)
+
+Sample Input:
+
+sameFrequency(182,281) // true
+sameFrequency(34,14) // false
+sameFrequency(3589578, 5879385) // true
+sameFrequency(22,222) // false
+
+Assumptions:
+
+- 
+That both integers are positive and are greater than 0
+
+*/
+
+function sameFrequency(a, b) {
+  let num1 = String(a);
+  let num2 = String(b);
+
+  if (num1.length !== num2.length) return ` ${num1} AND ${num2} not the same sizes`;
+
+  const frequencyCounter = {};
+  const frequencyCounter2 = {};
+
+  for (let char of num1) {
+    frequencyCounter[char] = ++frequencyCounter[char] || 1;
+  }
+
+  for (let char of num2) {
+    frequencyCounter2[char] = ++frequencyCounter2[char] || 1;
+  }
+
+  console.log(frequencyCounter);
+  console.log(frequencyCounter2);
+
+  for (let key in frequencyCounter) {
+    if (frequencyCounter[key] !== frequencyCounter2[key]) return false;
+  }
+
+  return true;
+}
+
+// console.log(sameFrequency(128, 281));
+// console.log(sameFrequency(34, 14));
+// console.log(sameFrequency(3589578, 5879385));
+// console.log(sameFrequency(22, 222));
+
+/*
+
+***************************************************************
+ */
+
+/* 
+
 MULTIPLE POINTER PATTERN
 
 */
@@ -140,3 +199,44 @@ function countUniqueValues(arr) {
 }
 console.log(`- Counting unique values`);
 countUniqueValues([1, 1, 2, 3, 3, 4, 5, 6, 6, 7]);
+
+/* 
+
+SLIDING WINDOW
+
+*/
+
+console.log("\n\nSLIDING WINDOW PATTERN\n" + "*".repeat(100));
+
+function maxSum(arr, num) {
+  if (num > arr.length) return null;
+
+  let tempSum = 0;
+  let maxSum = 0;
+
+  for (let i = 0; i < num; i++) {
+    maxSum += arr[i];
+  }
+
+  for (let i = num; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - num] + arr[i];
+    maxSum = Math.max(tempSum, maxSum);
+  }
+
+  console.log(maxSum);
+  return maxSum;
+}
+console.log(
+  `- Scoping an array and trying to do something with the sub-arrays or sub-values\n and being able to filter out/in values as the window slides. `
+);
+
+maxSum([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], 2);
+
+/* 
+
+  DIVIDE AND CONQUER 
+
+*/
+
+console.log("\n\nDIVIDE AND CONQUER\n" + "*".repeat(100));
+console.log("- Used in large data sets for mostly sorting related issues");
