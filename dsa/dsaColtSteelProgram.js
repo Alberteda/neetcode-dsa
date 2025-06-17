@@ -146,6 +146,45 @@ function sameFrequency(a, b) {
 // console.log(sameFrequency(3589578, 5879385));
 // console.log(sameFrequency(22, 222));
 
+/* 
+
+
+Frequency Counter - areThereDuplicates
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, and checks whether there are any duplicates among the arguments passed in.  Use frequency counter pattern.
+
+Examples:
+
+areThereDuplicates(1, 2, 3) // false
+areThereDuplicates(1, 2, 2) // true 
+areThereDuplicates('a', 'b', 'c', 'a') // true 
+Restrictions:
+
+Time - O(n)
+
+Space - O(n)
+
+Bonus:
+
+Time - O(n log n)
+
+Space - O(1)
+
+*/
+
+function areThereDuplicatesFC(data1) {
+  if (data1.length - 1 < 1) return "Only one value in data.";
+
+  let frequencyCounter = {};
+
+  for (let val of data1) {
+    frequencyCounter[val] = ++frequencyCounter[val] || 1;
+
+    if (frequencyCounter[val] > 1) return true;
+  }
+
+  return false;
+}
+
 /*
 
 ***************************************************************
@@ -195,10 +234,63 @@ function countUniqueValues(arr) {
     }
   }
 
-  console.log(arr);
+  // console.log(arr);
 }
 console.log(`- Counting unique values`);
-countUniqueValues([1, 1, 2, 3, 3, 4, 5, 6, 6, 7]);
+// countUniqueValues([1, 1, 2, 3, 3, 4, 5, 6, 6, 7]);
+
+/* 
+
+
+Multiple Pointers - areThereDuplicates
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, and checks whether there are any duplicates among the arguments passed in.  Use multiple pointers pattern.
+
+Examples:
+
+areThereDuplicates(1, 2, 3) // false
+areThereDuplicates(1, 2, 2) // true 
+areThereDuplicates('a', 'b', 'c', 'a') // true 
+Restrictions:
+
+Time - O(n)
+
+Space - O(n)
+
+Bonus:
+
+Time - O(n log n)
+
+Space - O(1)
+
+*/
+
+function areThereDuplicatesMP(data1) {
+  let left = 0;
+  let right = 1;
+
+  while (left < right) {
+    let vLeft = data1[left];
+    let vRight = data1[right];
+    if (vLeft === vRight) {
+      return true;
+    } else if (right < data1.length - 1) {
+      right++;
+    } else {
+      left++;
+      right = left + 1;
+    }
+  }
+
+  return false;
+}
+
+console.log(areThereDuplicatesMP([1, 2, 4]));
+
+/* 
+
+*****************************************************
+
+*/
 
 /* 
 
@@ -223,14 +315,14 @@ function maxSum(arr, num) {
     maxSum = Math.max(tempSum, maxSum);
   }
 
-  console.log(maxSum);
+  // console.log(maxSum);
   return maxSum;
 }
 console.log(
   `- Scoping an array and trying to do something with the sub-arrays or sub-values\n and being able to filter out/in values as the window slides. `
 );
 
-maxSum([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], 2);
+// maxSum([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], 2);
 
 /* 
 
@@ -240,3 +332,11 @@ maxSum([2, 4, 6, 8, 10, 12, 14, 16, 18, 20], 2);
 
 console.log("\n\nDIVIDE AND CONQUER\n" + "*".repeat(100));
 console.log("- Used in large data sets for mostly sorting related issues");
+
+/* 
+
+ RECURSSION
+
+*/
+
+console.log("\n\nRECURSSION\n" + "*".repeat(100));
